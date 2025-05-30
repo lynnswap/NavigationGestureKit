@@ -42,18 +42,17 @@ extension WebViewFullWidthBackSwipeHandler: UIGestureRecognizerDelegate {
 }
 
 // MARK: - WKWebView extension
-private var fullWidthHandlerKey: UInt8 = 0
-
 public extension WKWebView {
+    private static var fullWidthHandlerKey: UInt8 = 0
     /// Installs and returns a ``WebViewFullWidthBackSwipeHandler`` for this web view.
     /// The handler is created only once and stored via Objective-C associated objects.
     var fullWidthBackSwipeHandler: WebViewFullWidthBackSwipeHandler {
-        if let handler = objc_getAssociatedObject(self, &fullWidthHandlerKey) as? WebViewFullWidthBackSwipeHandler {
+        if let handler = objc_getAssociatedObject(self, &Self.fullWidthHandlerKey)as? WebViewFullWidthBackSwipeHandler {
             return handler
         }
         let handler = WebViewFullWidthBackSwipeHandler()
-        handler.configure(for: self, gestureName: NavigationGestureKit.defaultFullWidthBackGestureName)
-        objc_setAssociatedObject(self, &fullWidthHandlerKey, handler, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+        handler.configure(for: self,gestureName: NavigationGestureKit.defaultFullWidthBackGestureName)
+        objc_setAssociatedObject(self,&Self.fullWidthHandlerKey,handler,.OBJC_ASSOCIATION_RETAIN_NONATOMIC)
         return handler
     }
 
@@ -62,17 +61,12 @@ public extension WKWebView {
     func addFullWidthBackSwipeGesture(gestureName: String = NavigationGestureKit.defaultFullWidthBackGestureName) {
         let handler = WebViewFullWidthBackSwipeHandler()
         handler.configure(for: self, gestureName: gestureName)
-        withUnsafePointer(to: fullWidthHandlerKey) { keyPtr in
-            objc_setAssociatedObject(self, keyPtr, handler, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
-        }
+        objc_setAssociatedObject(self,&Self.fullWidthHandlerKey,handler,.OBJC_ASSOCIATION_RETAIN_NONATOMIC)
     }
 
     /// Removes a previously added full-width back swipe gesture recognizer.
     /// - Parameter name: The gesture recognizer name to remove.
     func removeFullWidthBackSwipeGesture(named name: String = NavigationGestureKit.defaultFullWidthBackGestureName) {
-        guard let recognizers = gestureRecognizers else { return }
-        for recognizer in recognizers where recognizer.name == name {
-            removeGestureRecognizer(recognizer)
-        }
+        gestureRecognizers?.filter { $0.name == name }.forEach(removeGestureRecognizer)
     }
 }
