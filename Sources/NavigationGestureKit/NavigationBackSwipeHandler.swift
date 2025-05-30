@@ -4,6 +4,7 @@
 //
 //  Created by lynnswap on 2025/05/30.
 //
+#if canImport(UIKit)
 import UIKit
 
 @MainActor
@@ -44,3 +45,4 @@ extension UIViewController {
         return parent?.findNavigationController()
     }
 }
+#endif
