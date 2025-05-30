@@ -17,8 +17,8 @@ struct ContentView: View {
         NavigationStack {
             Text("Hello, world!")
                 .navigationTitle("Home")
+                .navigationBackSwipeHandler()
         }
-        .navigationBackSwipeHandler()
     }
 }
 ```
