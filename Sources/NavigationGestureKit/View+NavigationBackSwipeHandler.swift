@@ -1,4 +1,4 @@
-#if canImport(SwiftUI) && canImport(UIKit)
+
 import SwiftUI
 import UIKit
 
@@ -39,5 +39,4 @@ public extension View {
         background(BackSwipeHandlerView(isEnabled: isEnabled).frame(width: 0, height: 0))
     }
 }
-#endif
 

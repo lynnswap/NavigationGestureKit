@@ -5,7 +5,6 @@
 //  Created by lynnswap on 2025/05/30.
 //
 
-#if canImport(UIKit)
 import UIKit
 import WebKit
 
@@ -38,4 +37,3 @@ extension WebViewFullWidthBackSwipeHandler: UIGestureRecognizerDelegate {
         return loc < (width - ignoreZone)
     }
 }
-#endif
