@@ -20,7 +20,7 @@ private struct BackSwipeHandlerView: UIViewControllerRepresentable {
 
         override func didMove(toParent parent: UIViewController?) {
             super.didMove(toParent: parent)
-            guard let parent, UIDevice.current.userInterfaceIdiom == .phone else { return }
+            guard let parent else { return }
             if !handler.isConfigured {
                 handler.configure(for: parent)
             }
