@@ -1,12 +1,13 @@
 # NavigationGestureKit
 
-A Swift package that expands navigation back swipe gestures to the full width of the view. Designed with SwiftUI in mind, it lets you enable system-like back navigation across your entire screen.
+NavigationGestureKit is a lightweight Swift package that adds full‑width swipe‑back gestures to UINavigationController and WKWebView. A SwiftUI ViewModifier is included, so you can adopt it in both UIKit and SwiftUI projects with just a few lines of code.
 
 ## Features
 - `NavigationBackSwipeHandler` enables a full-width back swipe for `UINavigationController` stacks.
 - `WebViewFullWidthBackSwipeHandler` allows full-width swipe gestures in `WKWebView`.
 
-## SwiftUI Usage
+## Usage
+### SwiftUI
 ```swift
 import SwiftUI
 import NavigationGestureKit
@@ -18,6 +19,19 @@ struct ContentView: View {
                 .navigationTitle("Home")
         }
         .navigationBackSwipeHandler()
+    }
+}
+```
+### UIKit
+```swift
+import NavigationGestureKit
+
+class RootViewController: UIViewController {
+    private let backSwipe = NavigationBackSwipeHandler()
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        backSwipe.configure(for: self)
     }
 }
 ```
